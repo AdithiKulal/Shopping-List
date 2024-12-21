@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Shopping List App</title>
+</head>
+<body>
+    <h1>Shopping List App</h1>
+    <input type="text" id="item" placeholder="Enter item">
+    <button onclick="addItem()">Add Item</button>
+    <ul id="shopping-list"></ul>
+    <script>
+        let shoppingList = [];
+
+        function addItem() {
+            const item = document.getElementById('item').value.trim();
+            if (item !== '') {
+                shoppingList.push(item);
+                displayList();
+                document.getElementById('item').value = '';
+            }
+        }
+
+        function displayList() {
+            const list = document.getElementById('shopping-list');
+            list.innerHTML = '';
+            shoppingList.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${index + 1}. ${item}`;
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeItem(index);
+                listItem.appendChild(removeButton);
+                list.appendChild(listItem);
+            });
+        }
+
+        function removeItem(index) {
+            shoppingList.splice(index, 1);
+            displayList();
+        }
+    </script>
+</body>
+</html>
